@@ -14,26 +14,30 @@
                         <br>
                         <div>
                             <x-input-label for="username" :value="__('User Name')" />
-                            <x-text-input style="opacity: 50%" id="username" class="block mt-1 w-full" type="text" name="username" value="{{Auth::user()->name}}" disabled required/>
+                            <x-text-input style="opacity: 50%" id="username" class="block mt-1 w-full" type="text"
+                                name="username" value="{{Auth::user()->name}}" disabled required />
                             <x-input-error :messages="$errors->get('username')" class="mt-2" />
                         </div>
                         <br>
                         <div>
                             <x-input-label for="email" :value="__('Email')" />
-                            <x-text-input style="opacity: 50%" id="email" class="block mt-1 w-full" type="email" name="email"  value="{{Auth::user()->email}}" disabled required/>
+                            <x-text-input style="opacity: 50%" id="email" class="block mt-1 w-full" type="email"
+                                name="email" value="{{Auth::user()->email}}" disabled required />
                             <small style="color: red">Note: *Email gets from log in user</small>
                             <x-input-error :messages="$errors->get('email')" class="mt-2" />
                         </div>
                         <br>
                         <div>
                             <x-input-label for="title" :value="__('Article Title')" />
-                            <x-text-input id="title" class="block mt-1 w-full" type="text" name="title" :value="old('title')" required autofocus autocomplete="title" />
+                            <x-text-input id="title" class="block mt-1 w-full" type="text" name="title"
+                                :value="old('title')" required autofocus autocomplete="title" />
                             <x-input-error :messages="$errors->get('title')" class="mt-2" />
                         </div>
                         <br>
                         <div>
                             <x-input-label for="description" :value="__('Description')" />
-                            <x-text-input id="description" class="block mt-1 w-full" type="text" name="description" :value="old('description')" required autofocus autocomplete="description" />
+                            <x-text-input id="description" class="block mt-1 w-full" type="text" name="description"
+                                :value="old('description')" required autofocus autocomplete="description" />
                             <x-input-error :messages="$errors->get('description')" class="mt-2" />
                         </div>
                         <br>
@@ -52,8 +56,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script>
-    $(document).ready(function() {
-        $('#article_form').submit(function(e) {
+    $(document).ready(function () {
+        $('#article_form').submit(function (e) {
             e.preventDefault();
             const formData = new FormData(this);
             $.ajax({
@@ -63,7 +67,7 @@
                 processData: false,
                 contentType: false,
                 dataType: 'json',
-                success: function(response) {
+                success: function (response) {
                     if (response.message) {
                         toastr.success(response.message);
                         setTimeout(() => {
@@ -74,7 +78,7 @@
                     }
                     // $("#refresh_div").load(location.href + " #refresh_div");
                 },
-                error: function(xhr, status, error) {
+                error: function (xhr, status, error) {
                     let errorMsg = "An error occurred. Please try again.";
                     if (xhr.responseJSON && xhr.responseJSON.errors) {
                         errorMsg = Object.values(xhr.responseJSON.errors).join('<br>');
@@ -88,4 +92,3 @@
         });
     });
 </script>
-

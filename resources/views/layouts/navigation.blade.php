@@ -15,7 +15,7 @@
                             {{ __('Dashboard') }}
                         </x-nav-link>
                     </div>
-                @elseif (Auth::guard('branch')->check())
+                @elseif (Auth::guard('web')->check())
                     <div class="shrink-0 flex items-center">
                         <a href="{{ route('dashboard') }}">
                             <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
@@ -28,13 +28,15 @@
                     </div>
                 @endif
                 <!-- Navigation Links -->
-                @can('user_show')
-                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('user.list')" :active="request()->routeIs('user.list')">
-                            {{ __('Users') }}
-                        </x-nav-link>
-                    </div>
-                @endcan
+                 <!-- @if(Auth::guard('web')->check()) -->
+                    @can('user_show')
+                        <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                            <x-nav-link :href="route('users.list')" :active="request()->routeIs('users.list')">
+                                {{ __('Users') }}
+                            </x-nav-link>
+                        </div>
+                    @endcan
+                <!-- @endif -->
 
                 @can('permission_show')
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
@@ -54,7 +56,7 @@
 
                 @can('article_show')
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('article.list')" :active="request()->routeIs('article.list')">
+                        <x-nav-link :href="route('articles.list')" :active="request()->routeIs('articles.list')">
                             {{ __('Articles') }}
                         </x-nav-link>
                     </div>
