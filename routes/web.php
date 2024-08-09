@@ -1,10 +1,11 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\BranchController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\BranchUserContoller;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -38,19 +39,19 @@ Route::middleware('auth')->group(function () {
     Route::delete('/role/delete/{id}',[RoleController::class,'destroy'])->name('role.destroy');
 
 
-    Route::get('/article',[ArticleController::class,'index'])->name('article.list');
-    Route::get('/article/create',[ArticleController::class,'create'])->name('article.create');
-    Route::post('/article/store',[ArticleController::class,'store'])->name('article.store');
-    Route::get('/article/edit/{id}',[ArticleController::class,'edit'])->name('article.edit');
-    Route::post('/article/update',[ArticleController::class,'update'])->name('article.update');
-    Route::delete('/article/delete/{id}',[ArticleController::class,'destroy'])->name('article.destroy');
+    Route::get('/article',[ArticleController::class,'index'])->name('articles.list');
+    Route::get('/article/create',[ArticleController::class,'create'])->name('articles.create');
+    Route::post('/article/store',[ArticleController::class,'store'])->name('articles.store');
+    Route::get('/article/edit/{id}',[ArticleController::class,'edit'])->name('articles.edit');
+    Route::post('/article/update',[ArticleController::class,'update'])->name('articles.update');
+    Route::delete('/article/delete/{id}',[ArticleController::class,'destroy'])->name('articles.destroy');
 
-    // Route::get('/user',[UserController::class,'index'])->name('user.list');
-    // Route::get('/user/create',[UserController::class,'create'])->name('user.create');
-    // Route::post('/user/store',[UserController::class,'store'])->name('user.store');
-    // Route::get('/user/edit/{id}',[UserController::class,'edit'])->name('user.edit');
-    // Route::post('/user/update',[UserController::class,'update'])->name('user.update');
-    // Route::delete('/user/delete/{id}',[UserController::class,'destroy'])->name('user.destroy');
+    Route::get('/user',[BranchController::class,'index'])->name('users.list');
+    Route::get('/user/create',[BranchUserContoller::class,'create'])->name('users.create');
+    Route::post('/user/store',[BranchUserContoller::class,'store'])->name('users.store');
+    Route::get('/user/edit/{id}',[BranchUserContoller::class,'edit'])->name('users.edit');
+    Route::post('/user/update',[BranchUserContoller::class,'update'])->name('users.update');
+    Route::delete('/user/delete/{id}',[BranchUserContoller::class,'destroy'])->name('users.destroy');
 
 });
 

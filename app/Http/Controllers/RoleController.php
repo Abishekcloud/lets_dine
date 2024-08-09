@@ -17,10 +17,10 @@ class RoleController extends Controller implements HasMiddleware
     public static function middleware(): array
     {
         return [
-            new Middleware('permission:role_show',only: ['index']),
-            new Middleware('permission:role_edit',only: ['edit']),
-            new Middleware('permission:role_create',only: ['create']),
-            new Middleware('permission:role_delete',only: ['destroy']),
+            new Middleware('permission:role_show', only: ['index']),
+            new Middleware('permission:role_edit', only: ['edit']),
+            new Middleware('permission:role_create', only: ['create']),
+            new Middleware('permission:role_delete', only: ['destroy']),
         ];
     }
     /**
@@ -29,7 +29,7 @@ class RoleController extends Controller implements HasMiddleware
     public function index()
     {
         $roles = Role::all();
-        return view('role.list',compact('roles'));
+        return view('role.list', compact('roles'));
     }
 
     /**
@@ -40,17 +40,17 @@ class RoleController extends Controller implements HasMiddleware
     {
         $guard_name = $request->guard_name;
         $permissions = Permission::where('guard_name', $guard_name)
-        ->orderBy('name', 'ASC')
-        ->pluck('name');
+            ->orderBy('name', 'ASC')
+            ->pluck('name');
 
-    return response()->json($permissions);
+        return response()->json($permissions);
     }
 
 
     public function create()
     {
         $permissions = Permission::orderBy('name', 'ASC')->get();
-        return view('role.create',compact('permissions'));
+        return view('role.create', compact('permissions'));
     }
 
     /**
@@ -101,11 +101,12 @@ class RoleController extends Controller implements HasMiddleware
      */
     public function edit(string $id)
     {
+        // dd($id);
         $guard = Auth::guard()->name;
-        $roles = Role::findById($id, $guard);
-        $permissions = Permission::where('guard_name', 'admin')->orderBy('name', 'ASC')->get();
+        $roles = Role::findOrFail($id);
+        $permissions = Permission::orderBy('name', 'ASC')->get();
         $hasPermissions = $roles->permissions->pluck('name');
-        return view('role.edit',compact('roles','permissions','hasPermissions'));
+        return view('role.edit', compact('roles', 'permissions', 'hasPermissions'));
     }
 
     /**
@@ -125,7 +126,7 @@ class RoleController extends Controller implements HasMiddleware
                 return response()->json(['errors' => $validator->messages()], 422);
             }
 
-            $role = Role::findById($request->id);
+            $role = Role::findOrFail($request->id);
             if (!$role) {
                 return response()->json(['error' => 'Role not found.'], 404);
             }

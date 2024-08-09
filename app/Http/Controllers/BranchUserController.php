@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Role;
 use Illuminate\Routing\Controllers\Middleware;
-class UserContoller extends Controller implements HasMiddleware
+class BranchUserContoller extends Controller implements HasMiddleware
 {
     public static function middleware(): array
     {
@@ -28,7 +29,8 @@ class UserContoller extends Controller implements HasMiddleware
     public function index()
     {
         $users = User::all();
-        return view('user.list',compact('users'));
+        $admins = Admin::all();
+        return view('user.list',compact('users','admins'));
     }
 
     /**
