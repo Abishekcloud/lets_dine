@@ -17,6 +17,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
             'auth.admin' => \App\Http\Middleware\RedirectIfNotAuthenticatedAdmin::class,
             'guest.admin' => \App\Http\Middleware\RedirectIfAuthenticatedAdmin::class,
+            'admin.access' => \App\Http\Middleware\AdminAccessMultipleGuards::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

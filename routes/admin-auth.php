@@ -56,6 +56,7 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
     Route::post('/role/update',[RoleController::class,'update'])->name('role.update');
     Route::delete('/role/delete/{id}',[RoleController::class,'destroy'])->name('role.destroy');
 
+    Route::get('/role/guard_filter',[RoleController::class,'guard_filter'])->name('role.guard_filter');
 
     Route::get('/article',[ArticleController::class,'index'])->name('article.list');
     Route::get('/article/create',[ArticleController::class,'create'])->name('article.create');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Support\Facades\Validator;
@@ -29,7 +30,8 @@ class AdminUserController extends Controller implements HasMiddleware
     public function index()
     {
         $users = User::all();
-        return view('user.list',compact('users'));
+        $admins = Admin::all();
+        return view('user.list',compact('users', 'admins'));
     }
 
     /**
@@ -46,24 +48,36 @@ class AdminUserController extends Controller implements HasMiddleware
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(),[
+        $validator = Validator::make($request->all(), [
             'name' => 'required|min:3',
-            'email' => 'required|email',
-            'password' => 'required',
+            'email' => 'required|email|unique:users,email|unique:admins,email',
+            'password' => 'required|min:6',
+            'role' => 'required',
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return response()->json(['errors' => $validator->messages()], 422);
         }
 
-        $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = $request->password;
-        $user->save();
-        $user->syncRoles($request->role);
+        if ($request->role === 'Super Admin') {
+            $user = new Admin();
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = bcrypt($request->password);
+            $user->save();
+            $user->syncRoles($request->role);
+        } else {
+            $user = new User();
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = bcrypt($request->password);
+            $user->save();
+            $user->syncRoles($request->role);
+        }
+
         return response()->json(['message' => 'User Created successfully!'], 201);
     }
+
 
     /**
      * Display the specified resource.
@@ -88,21 +102,56 @@ class AdminUserController extends Controller implements HasMiddleware
      */
     public function update(Request $request)
     {
-        // dd($request->toArray());
-        $validator = Validator::make($request->all(),[
+        $validator = Validator::make($request->all(), [
             'name' => 'required|min:3',
-            'email' => 'required|unique:users,name,' . $request->id,
+            'email' => 'required|email|unique:users,email,' . $request->id . '|unique:admins,email,' . $request->id,
+            'role' => 'required',
         ]);
-        if($validator->fails()){
+
+        if ($validator->fails()) {
             return response()->json(['errors' => $validator->messages()], 422);
         }
-        $user = User::find($request->id);
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->update();
-        $user->syncRoles($request->role);
-        return response()->json(['message' => 'User Updated successfully!'], 201);
+
+        // Check if the user is currently in the users table or admins table
+        $user = User::find($request->email);
+        if ($user) {
+            $currentTable = 'users';
+        } else {
+            $user = Admin::find($request->email);
+            $currentTable = 'admins';
+        }
+
+        if (!$user) {
+            return response()->json(['errors' => ['User not found']], 404);
+        }
+
+        if ($request->role === 'Super Admin' && $currentTable === 'users') {
+            $admin = new Admin();
+            $admin->name = $user->name;
+            $admin->email = $user->email;
+            $admin->password = $user->password;
+            $admin->save();
+            $admin->syncRoles($request->role);
+            $user->delete();
+        } elseif ($request->role !== 'Super Admin' && $currentTable === 'admins') {
+            $newUser = new User();
+            $newUser->name = $user->name;
+            $newUser->email = $user->email;
+            $newUser->password = $user->password; // Assuming password is already hashed
+            $newUser->save();
+            $newUser->syncRoles($request->role);
+
+            $user->delete();
+        } else {
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->update();
+            $user->syncRoles($request->role);
+        }
+
+        return response()->json(['message' => 'User Updated successfully!'], 200);
     }
+
 
     /**
      * Remove the specified resource from storage.

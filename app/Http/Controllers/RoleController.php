@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -28,13 +29,24 @@ class RoleController extends Controller implements HasMiddleware
     public function index()
     {
         $roles = Role::all();
-        // dd($roles);
         return view('role.list',compact('roles'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
+
+    public function guard_filter(Request $request)
+    {
+        $guard_name = $request->guard_name;
+        $permissions = Permission::where('guard_name', $guard_name)
+        ->orderBy('name', 'ASC')
+        ->pluck('name');
+
+    return response()->json($permissions);
+    }
+
+
     public function create()
     {
         $permissions = Permission::orderBy('name', 'ASC')->get();
@@ -89,7 +101,8 @@ class RoleController extends Controller implements HasMiddleware
      */
     public function edit(string $id)
     {
-        $roles = Role::findById($id);
+        $guard = Auth::guard()->name;
+        $roles = Role::findById($id, $guard);
         $permissions = Permission::where('guard_name', 'admin')->orderBy('name', 'ASC')->get();
         $hasPermissions = $roles->permissions->pluck('name');
         return view('role.edit',compact('roles','permissions','hasPermissions'));
