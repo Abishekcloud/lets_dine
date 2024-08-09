@@ -12,7 +12,7 @@
                     {{ __("Users List") }}
                     <div style="margin-left: auto; margin-top: -2rem; text-align: right;">
                         @can('user_create')
-                            <a href="{{ route('admin.user.create') }}">
+                            <a href="{{ route('user.create') }}">
                                 <x-primary-button class="ms-4">{{ __('Create') }}</x-primary-button>
                             </a>
                         @endcan
@@ -57,7 +57,7 @@
                                         </td>
                                         @can('user_edit')
                                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                                <a href="{{route('admin.user.edit',$user->id)}}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                                <a href="{{route('user.edit',$user->id)}}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
                                         @endcan
                                             <br>
                                         @can('user_delete')
@@ -91,7 +91,7 @@
             const userId = form.data('id');
             $.ajax({
                 type: 'POST',
-                url: '{{route('admin.user.destroy',0)}}' + userId,
+                url: '{{route('user.destroy',0)}}' + userId,
                 data: formData,
                 processData: false,
                 contentType: false,
@@ -100,7 +100,7 @@
                     if (response.message) {
                         toastr.success(response.message);
                     } else {
-                        toastr.success("Article Deleted Successfully!");
+                        toastr.success("User Deleted Successfully!");
                     }
                     setTimeout(() => {
                         $("#refresh_div").load(location.href + " #refresh_div");

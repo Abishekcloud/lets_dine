@@ -9,7 +9,7 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Role;
 use Illuminate\Routing\Controllers\Middleware;
-class UserController extends Controller implements HasMiddleware
+class AdminUserController extends Controller implements HasMiddleware
 {
     public static function middleware(): array
     {

@@ -6,7 +6,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\Admin\AdminUserController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -27,13 +27,13 @@ Route::prefix('admin')->middleware('guest:admin')->group(function () {
 });
 
 Route::prefix('admin')->middleware('auth:admin')->group(function () {
-    Route::get('/test',[UserController::class,'test'])->name('test');
-    Route::get('/user',[UserController::class,'index'])->name('user.list');
-    Route::get('/user/create',[UserController::class,'create'])->name('user.create');
-    Route::post('/user/store',[UserController::class,'store'])->name('user.store');
-    Route::get('/user/edit/{id}',[UserController::class,'edit'])->name('user.edit');
-    Route::post('/user/update',[UserController::class,'update'])->name('user.update');
-    Route::delete('/user/delete/{id}',[UserController::class,'destroy'])->name('user.destroy');
+    Route::get('/test',[AdminUserController::class,'test'])->name('test');
+    Route::get('/user',[AdminUserController::class,'index'])->name('user.list');
+    Route::get('/user/create',[AdminUserController::class,'create'])->name('user.create');
+    Route::post('/user/store',[AdminUserController::class,'store'])->name('user.store');
+    Route::get('/user/edit/{id}',[AdminUserController::class,'edit'])->name('user.edit');
+    Route::post('/user/update',[AdminUserController::class,'update'])->name('user.update');
+    Route::delete('/user/delete/{id}',[AdminUserController::class,'destroy'])->name('user.destroy');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
