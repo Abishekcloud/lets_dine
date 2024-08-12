@@ -1,0 +1,28 @@
+@font-face {
+    font-family:'dine_regular';
+    src: url("../fonts/poppins_regular.ttf") format("truetype");
+}
+
+@font-face {
+    font-family:'dine_medium';
+    src: url("../fonts/poppins_medium.ttf") format("truetype");
+}
+@font-face {
+    font-family:'dine_semi_bold';
+    src: url("../fonts/poppins_semi_bold.ttf") format("truetype");
+}
+@font-face {
+    font-family:'dine_bold';
+    src: url("../fonts/poppins_bold.ttf") format("truetype");
+}
+@font-face {
+    font-family:'dine_italic';
+    src: url("../fonts/poppins_italic.ttf") format("truetype");
+}
+
+@font-face {
+    font-family:'dine_light';
+    src: url("../fonts/poppins_light.ttf") format("truetype");
+}
+
+

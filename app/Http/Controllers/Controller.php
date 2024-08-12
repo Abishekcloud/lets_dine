@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 abstract class Controller
 {
-    //
-    // svsvsv
+public function welcome(){
+    return view('welcome');
+
+}
 }

@@ -1,0 +1,190 @@
+/*================================================================================ */
+@media (max-width: 1024px) {
+    .pos_drop {
+        position: inherit !important;
+        top: 0 !important;
+    }
+}
+/*================================================================================ */
+@media (max-width: 767px) {
+    .get_touch_info {
+        margin-top: 23px;
+        align-items: center !important;
+    }
+    .get_touch {
+        /* margin-top: 10px; */
+    }
+}
+/*================================================================================ */
+.bg_contact {
+    background-image: linear-gradient(360deg, #0000007d 0%, #00000052 100%),
+        url(../../images/contact_us/others/bg_contact.webp);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top center;
+    height: 100vh;
+}
+.bg_con_brown {
+    background: #281d0ee8;
+}
+.get_toch_logo {
+    width: 25px;
+}
+.get_touch_info {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-left: 71px;
+    line-height: 40px;
+}
+.gettouch_ver_center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    width: 100%;
+}
+
+/* contactus */
+.pos_drop {
+    position: relative;
+    top: -170px;
+}
+.con_label {
+    font: 1.25em/1.5 var(--dine_m);
+}
+.contact_card {
+    padding: 70px;
+    border-radius: 25px;
+    border: 0;
+    text-align: left;
+}
+.cus_form_control {
+    border: none;
+    border-bottom: 1px solid #633613;
+    border-radius: 0;
+    background: transparent;
+    color: var(--color-white);
+}
+.cus_form_control:focus {
+    box-shadow: none !important;
+    border-color: var(--primary-color);
+    background: transparent;
+    color: var(--color-white);
+}
+.cus_textarea {
+    border: none;
+    border-bottom: 1px solid #633613;
+    border-radius: 0;
+    background: transparent;
+    color: var(--color-white);
+}
+
+.cus_textarea:focus {
+    box-shadow: none !important;
+    border-color: var(--primary-color);
+    background: transparent;
+    /* color: var(--color-white); */
+    color: var(--color-white);
+}
+.cus_textarea_black {
+    box-shadow: none;
+    border-color: var(--primary-color);
+    background: transparent;
+    color: var(--color-black);
+}
+.cus_textarea_black:focus {
+    box-shadow: none !important;
+    border-color: var(--primary-color);
+    background: transparent;
+    color: var(--color-black);
+}
+
+.con_submit_btn {
+    border: var(--border) var(--primary-color);
+    border-radius: 18px;
+    padding: 10px 50px;
+    font: 1.25em/1.5 var(--dine_r);
+    border-radius: 30px;
+    color: var(--primary-white);
+    position: relative;
+}
+.con_submit_btn:hover {
+    border: var(--border) var(--primary-color);
+    background: transparent;
+    border-radius: 30px;
+    color: var(--primary-color);
+}
+/*================================================================================ */
+/* lets find us */
+.open_map:hover {
+    color: var(--primary-color);
+}
+iframe {
+    border: 0;
+    border-radius: 23px;
+}
+/*================================================================================ */
+
+.social_details_item {
+    display: flex;
+    align-items: center;
+}
+.smedia_icons {
+    columns: 2;
+    -webkit-columns: 2;
+    -moz-columns: 2;
+    list-style: none;
+    padding-left: 0;
+    width: 500px;
+    margin-top: 35px;
+}
+.smedia_icons li {
+    margin-bottom: 25px;
+}
+@media (max-width: 991px) {
+    .smedia_icons {
+        columns: 2;
+        -webkit-columns: 2;
+        -moz-columns: 2;
+        list-style: none;
+        padding-left: 0;
+        margin-top: 30px;
+        margin: 0 auto;
+        width: 300px;
+        margin-top: 30px;
+    }
+}
+.con_submit_btn.loading {
+    background-color: #ccc;
+    padding-right: 40px;
+}
+.con_submit_btn.loading:after {
+    content: "";
+    position: absolute;
+    border-radius: 100%;
+    right: 6px;
+    top: 50%;
+    width: 0px;
+    height: 0px;
+    margin-top: -2px;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-left-color: #fff;
+    border-top-color: #fff;
+    animation: spin 0.6s infinite linear, grow 0.3s forwards ease-out;
+}
+@keyframes spin {
+    to {
+        transform: rotate(359deg);
+    }
+}
+@keyframes grow {
+    to {
+        width: 14px;
+        height: 14px;
+        margin-top: -8px;
+        right: 13px;
+    }
+}

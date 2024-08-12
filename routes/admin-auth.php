@@ -71,3 +71,10 @@ Route::prefix('admin')->middleware('auth:admin')->group(function () {
 
     Route::post('logout', [LoginController::class, 'destroy'])->name('admin.logout');
 });
+Route::get('/session', function () {
+    Session::flush();
+    return "Session Cleared!";
+    // return redirect()->route('admin.auth.logout');
+});
+ 
+ 

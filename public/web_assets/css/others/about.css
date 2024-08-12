@@ -1,0 +1,201 @@
+@media(max-width:767px){
+    .wd_video {
+        width: 100%;
+        height: 100%!important;
+    }
+    .ourstory_sub_para{
+        text-align: inherit!important;
+    }
+    .chef_details {
+        padding: 15px 15px 15px 15px!important;
+        border-radius: 20px;
+    }
+    .h-0{
+        height: 0px;
+        overflow: hidden;
+        transition: all;        
+      }
+}
+
+.bg_abthdr_greadient{
+    background: linear-gradient(1.03deg, rgb(39 28 13 / 56%) 0.64%, #271C0D 98.88%);
+}
+.our_story {
+    /* padding: 48px 0px 48px 230px;
+    width: 80%; */
+    width: 80%;
+    margin: 0 auto;
+    padding: 25px;
+}
+.start_sec_mt {
+    margin-top: 4rem;
+}
+.ourstory_sub_para {
+    font: 1.125em/1.5 var(--dine_r);
+    text-align: justify;
+}
+.abt_our_story {
+    position: absolute;
+    left: -225px;
+    top: -41px;
+    max-width: 100%;
+    width: 450px;
+    margin: 0 auto;
+    height: auto;
+    padding: 15px;
+}
+/* founder */
+.abt_boll {
+    position: absolute;
+    right: 0;
+    /* bottom: 40px; */
+    bottom: 0px;
+}
+.wd_video {
+    width: 100%;
+    height: 500px;
+}
+/* start what we have */
+.bg_whatwe{
+    background: rgb(20, 20, 20);
+}
+/* start what we have */
+
+/* start meet our crew */
+.chef_img {
+    pointer-events: none;
+}
+.chef_details {
+    padding: 40px 40px 40px 40px;
+    border-radius: 20px;
+}
+
+.chef_shadow_left{
+    background: linear-gradient(270.19deg, #342e28 0.21%, rgb(255 255 255 / 0%) 87.21%);
+}
+.chef_shadow_right{
+    background: linear-gradient(94deg, #342e28 0.21%, rgb(255 255 255 / 0%) 87.21%);
+}
+/* end meet our crew */
+
+/* start what we have  */
+.ambiance_discription {
+    text-align: justify;
+}
+/* .bg_wehave{
+    background-image: url(../../images/about/other/bg_wehave.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+} */
+.weserve_greadient{
+    background: linear-gradient(1.03deg, #271C0D 0.64%, rgba(39, 28, 13, 0) 98.88%);
+}
+.light_brown_greadient{
+    background: linear-gradient(1.03deg, #271C0D 0.64%, rgba(39, 28, 13, 0) 98.88%);
+}
+.cus_serve_h{
+    display: flex;
+    flex-direction: column;
+    min-height: 400px;
+    justify-content: center;
+}
+/* end what we have  */
+
+/* vision mission */
+
+.col_hd{
+    opacity: 1;
+    transition: all 2s ease-in-out;
+    /* height: 180px; */
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+.our_item_act .our_item_in {
+    transform: translateY(-50%);
+    /* transition: transform 1s; */
+}
+
+.our_item_act .our_item_in {
+    transform: translateY(150%);
+    opacity: 0;
+}
+.our_item {
+    overflow: hidden;
+}
+.our_item h3 {
+    padding-bottom: 8px;
+}
+
+
+
+.abt_boll1{  
+    animation: football_up_down 1s linear;
+    animation-iteration-count: 5;
+  }
+  
+  
+  .abt_boll {
+        animation: football 0.5s;
+        animation-direction: alternate;
+        animation-timing-function: cubic-bezier(.5, 0.05, 1, .5);
+        animation-iteration-count: 10;
+        width: 40px;
+        opacity: 1;
+    }
+      
+    @keyframes football {
+        0% {
+            transform: translate3d(0, 0px, 0);
+            opacity: 1;
+        }
+        100% {
+            transform: translate3d(0px, 100px, 0);
+            opacity: 0;                    
+        }
+    }
+  
+  .col_fadeInUp{
+    animation-name:col_fadeUp;
+    animation-duration: 2s;
+    animation-iteration-count: 1;
+  }
+  
+  @keyframes col_fadeUp {
+      from {
+          /* transform: translate3d(0,40px,0) */
+          transform: translateY(60px);   
+      }
+  
+      to {
+          /* transform: translate3d(0,0,0); */
+          transform: translateY(0px);   
+          opacity: 1
+      }
+  }
+  
+  .col_fadeInDown{
+    animation-name:col_fadedown;
+    animation-duration: 2s;
+    animation-iteration-count: 1;
+    position: relative;
+    top: 50%;
+    transform: translateY(50%);
+  
+  }
+  
+  @keyframes col_fadedown1 {
+      0%{
+        transform: translateY(0px);  
+          opacity: 1
+      }
+      50%{
+        transform: translateY(50px);  
+          opacity: 1
+      }
+      100%{
+        transform: translateY(0px);  
+          opacity: 1
+      }
+  }
+  
+
