@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Validation\Rule;
 
 class PermissionController extends Controller implements HasMiddleware
 {
@@ -47,21 +48,24 @@ class PermissionController extends Controller implements HasMiddleware
     {
         try {
             $validator = Validator::make($request->all(), [
-                'permission' => 'required|unique:permissions,name',
-                'guard_name' => 'required|array',
-                'guard_name.*' => 'string|in:web,admin',
+                'permission' => 'required|string',
+                'guard_name' => [
+                    'required',
+                    'string',
+                    Rule::in(['web', 'admin']),
+                    Rule::unique('permissions')->where(function ($query) use ($request) {
+                        return $query->where('name', $request->permission);
+                    }),
+                ],
             ]);
 
             if ($validator->fails()) {
                 return response()->json(['errors' => $validator->messages()], 422);
             }
 
-            $guardNames = $request->input('guard_name', []);
-            $guardNamesString = implode(',', $guardNames);
-
             $permission = new Permission();
             $permission->name = $request->permission;
-            $permission->guard_name = $guardNamesString;
+            $permission->guard_name = $request->guard_name;
             $permission->save();
 
             return response()->json(['message' => 'Permission added successfully!'], 201);
@@ -70,6 +74,7 @@ class PermissionController extends Controller implements HasMiddleware
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
+
 
 
     /**

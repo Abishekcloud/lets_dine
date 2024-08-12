@@ -20,7 +20,7 @@
                         <br>
                         <div class="mb-4">
                             <label for="guard_name" class="block text-sm text-gray-600 mb-2">Guard Name:</label>
-                            <select id="guard_name[]" name="guard_name[]" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm" multiple>
+                            <select id="guard_name" name="guard_name" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
                                 <option value="admin">Admin</option>
                                 <option value="web">Web</option>
                             </select>

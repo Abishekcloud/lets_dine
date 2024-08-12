@@ -55,11 +55,20 @@
                 @endcan
 
                 @can('article_show')
+                @if (Auth::guard('admin')->check())
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                        <x-nav-link :href="route('article.list')" :active="request()->routeIs('articles.list')">
+                            {{ __('Articles') }}
+                        </x-nav-link>
+                    </div>
+                @elseif (Auth::guard('web')->check())
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                         <x-nav-link :href="route('articles.list')" :active="request()->routeIs('articles.list')">
                             {{ __('Articles') }}
                         </x-nav-link>
                     </div>
+                @endif
+
                 @endcan
             </div>
 
