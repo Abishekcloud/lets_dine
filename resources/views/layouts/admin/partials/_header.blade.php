@@ -22,7 +22,7 @@
         <div class="navbar-nav-wrap">
             <div class="navbar-brand-wrapper">
 
-                
+
 
             </div>
 
@@ -72,12 +72,12 @@
                                      "type": "css-animation"
                                    }'>
                                 <div class="d-none d-md-block media-body text-right">
-                                    <h5 class="profile-name text-capitalize mb-0">{{ auth('admin')->user()->f_name }}</h5>
+                                    {{-- <h5 class="profile-name text-capitalize mb-0">{{ auth('admin')->user()->f_name }}</h5> --}}
                                     {{-- <span class="fs-12 text-capitalize">{{ __('messages.super_admin') }}</span> --}}
                                 </div>
                                 <div class="avatar avatar-sm avatar-circle">
                                     <img class="avatar-img"
-                                         src="{{ auth('admin')->user()->image_fullpath }}"
+                                         src="{{ Auth::user()->image_fullpath }}"
                                          alt="{{ __('messages.image') }}">
                                     <span class="avatar-status avatar-sm-status avatar-status-success"></span>
                                 </div>
@@ -88,13 +88,15 @@
                                 <div class="dropdown-item-text">
                                     <div class="media gap-3 align-items-center">
                                         <div class="avatar avatar-sm avatar-circle mr-2">
-                                            <img class="avatar-img"
+                                            {{-- <img class="avatar-img"
                                                  src="{{ auth('admin')->user()->image_fullpath }}"
-                                                 alt="{{ __('messages.image') }}">
+                                                 alt="{{ __('messages.image') }}"> --}}
                                         </div>
                                         <div class="media-body">
-                                            <span class="card-title h5">{{ auth('admin')->user()->f_name }}</span>
-                                            <span class="card-text">{{ auth('admin')->user()->email }}</span>
+                                            <span class="card-title h5">{{ Auth::user()->f_name }}</span>
+                                            {{-- <span class="card-title h5">{{ auth('admin')->user()->f_name }}</span> --}}
+                                            <span class="card-text">{{ Auth::user()->email }}</span>
+                                            {{-- <span class="card-text">{{ auth('admin')->user()->email }}</span> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -107,6 +109,7 @@
 
                                 <div class="dropdown-divider"></div>
 
+                            @if (Auth::guard('admin')->check())
                                 <a class="dropdown-item" href="javascript:" onclick="confirmLogout()">
                                     <span class="text-truncate pr-2" title="{{ __('messages.sign_out') }}">{{ __('messages.sign_out') }}</span>
                                     <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
@@ -134,6 +137,35 @@
                                         }
                                         </script>
                                 </a>
+                            @elseif (Auth::guard('web')->check())
+                            <a class="dropdown-item" href="javascript:" onclick="confirmLogout()">
+                                <span class="text-truncate pr-2" title="{{ __('messages.sign_out') }}">{{ __('messages.sign_out') }}</span>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+
+                                <script>
+                                    function confirmLogout() {
+                                        Swal.fire({
+                                            title: '{{ __('messages.logout_confirmation') }}',
+                                            showDenyButton: true,
+                                            showCancelButton: true,
+                                            confirmButtonColor: '#673ab7',
+                                            cancelButtonColor: '#363636',
+                                            confirmButtonText: '{{ __('messages.yes') }}',
+                                            cancelButtonText: '{{ __('messages.no') }}',
+                                            denyButtonText: `{{ __('messages.dont_logout') }}`,
+                                        }).then((result) => {
+                                            if (result.value) {
+                                                document.getElementById('logout-form').submit();
+                                            } else {
+                                                Swal.fire('{{ __('messages.canceled') }}', '', 'info');
+                                            }
+                                        });
+                                    }
+                                    </script>
+                            </a>
+                            @endif
                             </div>
                         </div>
                     </li>

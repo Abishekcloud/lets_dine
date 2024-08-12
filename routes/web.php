@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminUserController;
+use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
@@ -8,6 +11,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\fController;
 
 use App\Http\Controllers\BranchUserContoller;
+use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -16,8 +20,11 @@ Route::get('/', function () {
 // Route::get('/', [Controller::class, 'edit'])->name('welcome');
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('admin.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/branch-login',[AuthenticatedSessionController::class,'create'])->name('branch.login');
+Route::post('/branch-login',[AuthenticatedSessionController::class,'store'])->name('branch.store.login');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -62,7 +69,7 @@ Route::get('/session', function () {
     return "Session Cleared!";
     // return redirect()->route('admin.auth.logout');
 });
- 
- 
+
+
 require __DIR__.'/auth.php';
 require __DIR__.'/admin-auth.php';

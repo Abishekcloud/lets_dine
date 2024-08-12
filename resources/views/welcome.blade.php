@@ -47,7 +47,7 @@
                                 <h3 class="display-4"> sign_in</h3>
                                 <p>want to login your branches
                                     ?
-                                    <a href="">
+                                    <a href="{{route('branch.login')}}">
                                         branch login
                                     </a>
                                 </p>

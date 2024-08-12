@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Title -->
-    <title> Admin | Login</title>
+    <title> Branch | Login</title>
 
 
     <link rel="icon" type="image/x-icon" href="{{ asset('storage/app/public/ecommerce/' . ($icon ?? 'default-icon.png')) }}">
@@ -39,16 +39,16 @@
                         <label class="badge badge-soft-success __login-badge text-primary">Software version : {{ env('SOFTWARE_VERSION')}}</label>
                     </div>
 
-                    <form id="form-id" action="" method="post">
+                    <form id="form-id" action="{{route('branch.store.login')}}" method="post">
                         @csrf
 
                         <div>
                             <div class="mb-5">
                                 <h3 class="display-4"> sign_in</h3>
-                                <p>want to login your branches
+                                <p>want to login your Admin Panel
                                     ?
-                                    <a href="{{route('branch.login')}}">
-                                        branch login
+                                    <a href="{{route('admin.login')}}">
+                                        Admin login
                                     </a>
                                 </p>
                             </div>

@@ -16,7 +16,8 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(): View
     {
-        return view('auth.login');
+        // return view('auth.login');
+        return view('branch.auth.login');
     }
 
     /**
@@ -24,6 +25,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
+        // dd($request);
         $request->authenticate();
 
         $request->session()->regenerate();
