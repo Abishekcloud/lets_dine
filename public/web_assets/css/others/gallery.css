@@ -1,0 +1,128 @@
+
+@media (max-width:767px){
+  .event_title {
+      font: 1.2em/1.5 var(--dine_m)!important;
+  }
+      .event_year {
+        font: 1em/1.5 var(--dine_m)!important;
+      }
+}
+
+@media (min-width:768px) and (max-width:1199.5px){
+  .event_title {
+      font: 1.5em/1.5 var(--dine_m)!important;
+  }
+  .event_year {
+    font: 1.2em/1.5 var(--dine_m)!important;
+  }
+}
+
+/* start caraousel */
+.gallery_carousel .owl-item.active,
+.gallery_carousel .owl-item {
+  transform: scale(0.9);
+  transition: 1s;
+  opacity: 0.8;
+}
+.gallery_carousel .active.center {
+  transform: rotate(0deg) !important;
+  transition: 1s;
+}
+
+.gallery .owl-item.active {
+  transition: 1s;
+}
+.gallery .owl-item.active,
+.gallery .owl-item {
+  transition: 1s;
+}
+
+.event_details {
+  position: absolute;
+  bottom: 0px;
+  left: 40px;
+  transition: 0.5s ease;
+  text-align: left;
+}
+.event_title {
+  font: 1.875em/1.5 var(--dine_m);
+}
+.event_year {
+  font: 1.5em/1.5 var(--dine_m);
+}
+
+.event_overlay {
+  position: absolute;
+  bottom: 0;
+  height: 0%;
+  width: 100%;
+  background: #0000002e;
+  opacity: 0;
+  transition: 0.5s ease;
+}
+.owl-item.active.center div.event_overlay {
+  opacity: 1;
+  height: 100%;
+}
+.owl-item.active.center div.event_details {
+  transform: translateY(-35%);
+}
+
+/* event slider */
+.event_block {
+  position: absolute;
+  background: #000000d4;
+  padding: 30px;
+  left: 0;
+  bottom: 0px;
+  width: 100%;
+  opacity: 0;
+  transform: translateY(100%);
+  transition: 0.5s ease;
+}
+.event_name {
+  font: 1.5em/1.5 var(--dine_m);
+  color: var(--primary-color);
+  margin-bottom: 10px;
+}
+.event_discription {
+  font: 1em/1.5 var(--dine_m);
+}
+.owl-item.active.center div.event_block {
+  opacity: 1;
+  /* height: 100%; */
+  
+}
+.owl-item.active.center div.event_block {
+  transform: translateY(0%);
+}
+
+
+@media (min-width: 992px) {
+  .g_col_wd-right {
+    width: 70%;
+    margin: 0 0 0 auto;
+  }
+  .g_col_wd-left {
+    width: 70%;
+    margin: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .event_block {
+    position: relative;
+    padding: 10px;
+    left: 0;
+    bottom: 0px;
+  }
+}
+
+.gallery_scroll_grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.anim_img {
+  grid-column: 1 / span 2;
+}

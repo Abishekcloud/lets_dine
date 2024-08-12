@@ -1,0 +1,223 @@
+/* grid responsive*/
+@media(max-width:767.5px){
+    .sp_img {
+        width: 70px!important;
+    }
+    sub {
+        bottom: 0.2em!important;
+    }
+    .offer_percent {
+        font: 1.2em/1 var(--dine_b)!important;
+    }
+    .offer_percent1 {
+        margin: 0;
+        font: 0.875em/1 var(--dine_b)!important;
+        width: 100%!important;
+    }
+
+}
+@media(max-width:1024px){
+    .offer_tag {
+        top: 8px!important;
+        left: 3px;
+    }
+}
+
+@media(min-width:768px) and (max-width:1024px){
+    .sp_img {
+        width: 80px!important;
+    }
+    sub {
+        bottom: 0.2em!important;
+    }
+    .offer_percent {
+        font: 1.2em/1 var(--dine_b)!important;
+    }
+    .offer_percent1 {
+        margin: 0;
+        font: 0.875em/1 var(--dine_b)!important;
+    }
+
+}
+
+@media(min-width:576px) and (max-width:767.5px) {
+    .special_menu_grid{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr)!important;
+        gap: 0px;
+    }
+}
+@media(min-width:768px) and (max-width:991px) {
+    .special_menu_grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr)!important;
+        gap: 0px;
+    }
+}
+@media(min-width:992px) and (max-width:1199px) {
+    .special_menu_grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr)!important;
+        gap: 0px;
+    }
+}
+@media(max-width:575px){
+    .special_menu_grid {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr)!important;
+        gap: 0px;
+    }
+}
+/* Special Menu */
+/* Offers */
+#offer {
+    padding: 50px 0;
+}
+.offer_set {
+    display: grid;
+    grid-template-columns: 65% 30%;
+    justify-content: space-between;
+}
+.offer_img {
+    width: 100%;
+}
+/* Offers */
+#special {
+    padding: 50px 0;
+}
+.speacial_heading {
+    text-align: var(--center);
+    padding: 0px 0px 40px;
+}
+.speacial_header {
+    font: 3em/2 var(--dine_m);
+    margin: 0;
+    color: var(--headerColor);
+}
+.special_para {
+    font: 1.2em/1.6 var(--dine_r);
+    margin: 0 auto;
+}
+.special_width {
+    width: 40%;
+}
+.sp_img {
+    width: 100px;
+}
+/* #special_menu {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0px;
+} */
+.special_menu_grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0px;
+}
+.special_one {
+    background: #252525;
+    padding: 22px 22px 10px 22px;
+    width: 90%;
+    margin: 20px auto;
+    border-radius: 20px;
+    position: relative;
+    transition: all 0.5s ease-in-out;
+}
+.special_menu {
+    overflow: hidden;
+    width: 100%;
+    border-radius: 10px;
+}
+.special_menu .menu_img {
+    transition: all 0.5s ease-in-out;
+}
+.special_one:hover .menu_img {
+    transform: scale(1.2) translateY(2%);
+    transition: all 0.5s ease-in-out;
+}
+.offer_per {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    z-index: 1;
+}
+.offer_tag {
+    position: absolute;
+    top: 10px;
+    width: 100%;
+    text-align: var(--center);
+    transform: rotate(345deg);
+}
+.offer_percent {
+    margin: 0;
+    font: 1.5em/1 var(--dine_b);
+}
+.offer_percent1 {
+    margin: 0;
+    font: 1.2em/1 var(--dine_b);
+    text-transform: uppercase;
+    width: 85%;
+}
+.menu_img {
+    width: 100%;
+    pointer-events: none;
+}
+.menu_header {
+    padding: 10px 0 0;
+}
+.menu_title {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+    align-items: center;
+}
+.menu_head {
+    margin: 0;
+    font: 1.2em/1 var(--dine_m);
+    cursor: default;
+    text-align: left;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.menu_para {
+    margin: 0;
+    cursor: default;
+}
+.ratings {
+    background-image: url('../../images/home/spacialmenu/star.png');
+    background-size: 13px;
+    background-repeat: no-repeat;
+    width: 40px;
+    text-align: right;
+    background-position: 0px 3px;
+}
+.menu_desc {
+    padding: 5px 0;
+    cursor: default;
+    text-align: left;
+}
+.menu_desc_list {
+    font: 0.875em/1.5 var(--dine_r);
+    margin: 0;
+    color: var(--color-muted);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.info {
+    padding: 7px;
+    border-radius: 30px;
+    width: 40px;
+    cursor: pointer;
+}
+.info:hover {
+    background-color: #545353;
+}
+.gallery_width {
+    width: 50%;
+}
+/* Special Menu */

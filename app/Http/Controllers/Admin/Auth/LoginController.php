@@ -24,6 +24,7 @@ class LoginController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
+        // dd($request);
         if (Auth::guard('admin')->attempt($request->only('email', 'password'), $request->filled('remember'))) {
             $request->session()->regenerate();
 
@@ -47,6 +48,6 @@ class LoginController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect()->route('admin.login');
+        return redirect('/');  
     }
 }
