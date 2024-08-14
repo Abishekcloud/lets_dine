@@ -76,5 +76,4 @@ Route::get('/session', function () {
     return "Session Cleared!";
     // return redirect()->route('admin.auth.logout');
 });
- 
- 
+

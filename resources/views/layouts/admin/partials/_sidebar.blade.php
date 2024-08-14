@@ -4,7 +4,7 @@
         <div class="navbar-vertical-container text-capitalize">
             <div class="navbar-vertical-footer-offset">
                 <div class="d-flex align-items-center gap-3 py-2 px-3 justify-content-between">
-                    
+
 
                     <button type="button" class="js-navbar-vertical-aside-toggle-invoker close mt-1">
                         <i class="tio-first-page navbar-vertical-aside-toggle-short-align"></i>
@@ -21,10 +21,20 @@
                                    placeholder="Search Menu...">
                         </div>
                     </div>
-
-         
                 </div>
-                >
+                {{-- @if('all_order_page_access') --}}
+                    <li class="nav-item {{Request::is('admin/orders/list/all')?'active':''}}">
+                        <a class="nav-link" href="#" title="">
+                            <span class="tio-circle nav-indicator-icon"></span>
+                            <span class="text-truncate">
+                                Roles
+                                <span class="badge badge-soft-info badge-pill ml-1">
+                                    1
+                                </span>
+                            </span>
+                        </a>
+                    </li>
+                {{-- @endif --}}
             </div>
         </div>
     </aside>

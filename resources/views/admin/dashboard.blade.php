@@ -9,7 +9,7 @@
 @section('content')
     <div class="content container-fluid">
         <div>
-            <h2 class="mb-1 text--primary">{{ __('messages.welcome') }}, {{ optional(auth('admin'))->user()->f_name }}.</h2>
+            <h2 class="mb-1 text--primary">{{ __('messages.welcome') }}, {{ Auth::user()->name }}.</h2>
             <p class="text-dark fs-12">{{ __('messages.welcome') }} {{ __('messages.admin') }}, {{ __('messages._here_is_your_business_statistics') }}.</p>
         </div>
 
