@@ -28,7 +28,7 @@ class PermissionController extends Controller implements HasMiddleware
 
     public function index()
     {
-
+        // dd("Hii");
         $permissions = Permission::orderBy('name', 'ASC')->get();
         return view('permission.list',compact('permissions'));
     }

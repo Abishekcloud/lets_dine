@@ -54,7 +54,7 @@
                                 </li>
                                 {{-- @endif --}}
                                 {{-- @if(in_array('order_pending_page_access',$userPermissions)) --}}
-                                
+
                                 {{-- @endif --}}
                             </ul>
                         </li>
@@ -82,32 +82,73 @@
                                         </span>
                                     </a>
                                 </li>
-                               
+
                                 {{-- @endif --}}
                             </ul>
                         </li>
-                        
+
 
                         <li class="nav-item p-top-100px">
                             <div class="nav-divider"></div>
                         </li>
-                        
+
                     </ul>
-         
+                    <ul class="navbar-nav navbar-nav-lg nav-tabs">
+
+                        {{-- @if(in_array('Order_management_access',$userPermissions)) --}}
+                        <li class="nav-item">
+                            <small class="nav-subtitle">{{__('messages.user_management')}}</small>
+                            <small class="tio-more-horizontal nav-subtitle-replacer"></small>
+                        </li>
+                        <!-- Pages -->
+                        {{-- @if(in_array('user_create_user_permission_access',$userPermissions)) --}}
+                        <li class="navbar-vertical-aside-has-menu {{Request::is('admin/permissions*') ? 'active' : ''}}">
+                            <a class="js-navbar-vertical-aside-menu-link nav-link nav-link-toggle" href="javascript:">
+                                <i class="tio-group-senior nav-icon" data-toggle="tooltip" data-placement="top" title="{{ __('messages.Users')}}"></i>
+                                <span
+                                    class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">{{__('messages.user_management')}}</span>
+                            </a>
+                            <ul class="js-navbar-vertical-aside-submenu nav nav-sub"
+                                style="display: {{Request::is('admin/permissions*')?'block':'none'}}">
+
+                        {{-- @if(in_array('user_list_page_access',$userPermissions)) --}}
+                                <li class="nav-item {{Request::is('admin/user*')?'active':''}}">
+                                    <a class="nav-link " href="#">
+                                    <span class="tio-circle nav-indicator-icon"></span>
+                                    <span class="text-truncate">{{('Users')}}</span>
+                                </a>
+                            </li>
+                            {{-- @endif --}}
+                            {{-- @if(in_array('roles_list_page_access',$userPermissions)) --}}
+                            <li class="nav-item {{Request::is('admin/role*')?'active':''}}">
+                                <a class="nav-link " href="{{route('role.list')}}">
+                                    <span class="tio-circle nav-indicator-icon"></span>
+                                    <span class="text-truncate">{{__('messages.roles')}}</span>
+                                </a>
+                            </li>
+                            {{-- @endif --}}
+                            {{-- @if(in_array('roles_list_page_access',$userPermissions)) --}}
+                            <li class="nav-item {{Request::is('admin/permission*')?'active':''}}">
+                                <a class="nav-link " href="{{route('permission.list')}}">
+                                    <span class="tio-circle nav-indicator-icon"></span>
+                                    <span class="text-truncate">{{__('messages.permission')}}</span>
+                                </a>
+                            </li>
+                            {{-- @endif --}}
+
+                            </ul>
+                        </li>
+                        {{-- @endif --}}
+
+
+                        <li class="nav-item p-top-100px">
+                            <div class="nav-divider"></div>
+                        </li>
+
+                    </ul>
+
                 </div>
-                {{-- @if('all_order_page_access') --}}
-                    <li class="nav-item {{Request::is('admin/orders/list/all')?'active':''}}">
-                        <a class="nav-link" href="#" title="">
-                            <span class="tio-circle nav-indicator-icon"></span>
-                            <span class="text-truncate">
-                                Roles
-                                <span class="badge badge-soft-info badge-pill ml-1">
-                                    1
-                                </span>
-                            </span>
-                        </a>
-                    </li>
-                {{-- @endif --}}
+
             </div>
         </div>
     </aside>
