@@ -1,133 +1,170 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Roles') }}
-        </h2>
-    </x-slot>
+@extends('layouts.admin.app')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __("Roles List") }}
-                    <div style="margin-left: auto; margin-top: -2rem; text-align: right;">
-                        @can('role_create')
-                            <a href="{{ route('role.create') }}">
-                                <x-primary-button class="ms-4">{{ __('Create') }}</x-primary-button>
-                            </a>
-                        @endcan
+@section('title', ('Role List'))
+
+@push('css_or_js')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+@endpush
+
+@section('content')
+    <div class="content container-fluid">
+        <div class="d-flex flex-wrap gap-3 align-items-center mb-3">
+            <h2 class="text-capitalize mb-0 d-flex align-items-center gap-2">
+                <img width="20" src="{{asset('public/assets/admin/img/icons/product.png')}}" alt="">
+                Role list
+            </h2>
+            <span class="badge badge-soft-dark rounded-50 fs-14">{{$roles->count()}}</span>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <!-- Card -->
+                <div class="card">
+                    <div class="px-20 py-3">
+                        <div class="row gy-2 align-items-center">
+                            <div class="col-lg-4 col-sm-8 col-md-6">
+                                <form action="{{url()->current()}}" method="GET">
+                                    <div class="input-group">
+                                        <input id="datatableSearch_" type="search" name="search"
+                                               class="form-control"
+                                               placeholder="Search by Role Name"
+                                               value="" required autocomplete="off">
+                                                <a href="{{ url()->current() }}"><button type="button"
+                                            class="btn search-refresh"><i class="tio-refresh" title="Refresh"></i>
+                                        </button></a>
+                                        <div class="input-group-append">
+                                            <button type="submit" class="btn btn-primary">"search"
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            {{-- @if(('add_roles_access')) --}}
+                            <div class="col-lg-8 col-sm-4 col-md-6 d-flex justify-content-sm-end">
+                                <a href="#" class="btn btn-primary">
+                                    <i class="tio-add"></i>
+                                    Add New Role
+                                </a>
+                            </div>
+                            {{-- @endif --}}
+                        </div>
                     </div>
-                </div>
-                <div class="py-12" id="refresh_div">
-                    <div class="overflow-x-auto">
-                        <table class="min-w-full max-w-full mx-auto divide-y divide-gray-200">
-                            <thead>
+
+                    <!-- Table -->
+                    <div class="table-responsive datatable-custom">
+                        <table class="table table-borderless table-thead-bordered table-nowrap table-align-middle card-table">
+                            <thead class="thead-light">
                                 <tr>
-                                    <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        ID
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Guard Name
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Role Name
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Permissions
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Created At
-                                    </th>
-                                    <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Actions
-                                    </th>
+                                    <th>SL</th>
+                                    <th>Role Name</th>
+                                    <th>Permissions</th>
+                                    <th class="text-center">Action</th>
                                 </tr>
                             </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
-                                @foreach ($roles as $role)
-                                    <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                            {{ $role->id }}
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                            {{ $role->guard_name }}
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                            {{ $role->name }}
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                            @foreach ($role->permissions->sortBy('name') as $permission)
-                                                <span style="color: grey" class="inline-block bg-gray-200 text-gray-800 rounded-full px-3 py-1 text-sm font-semibold mr-2 mb-2">
-                                                    {{ $permission->name }}
-                                                </span>
+
+                            <tbody id="set-rows">
+                            @foreach($roles as $key=>$role)
+                                <tr>
+                                    <td>{{$loop->iteration}}</td>
+                                    <td>
+                                        <span class="media gap-3 align-items-center">
+                                             <a href="#" class="media-body text-dark">
+                                               {{ $role->name }}
+                                             </a>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <select name="permissions[]"
+                                                class="form-control js-select2-custom"
+                                                multiple="multiple">
+                                            @foreach($role->permissions as $permission)
+                                                <option selected  value="{{$permission->id}}">{{$permission->name}}</option>
                                             @endforeach
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                            {{Carbon\Carbon::parse($role->created_at)->format('M, D, h:m a')}}
-                                        </td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                            @can('role_edit')
-                                                <a href="{{route('role.edit',$role->id)}}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
-                                            @endcan
-                                            <br>
-                                            @can('role_delete')
-                                                <form id="del_permission_{{ $role->id }}" class="del_role_form" data-id="{{ $role->id }}">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
-                                                </form>
-                                            @endcan
-                                        </td>
-                                    </tr>
-                                @endforeach
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex gap-2 justify-content-center">
+                                            {{-- @if(in_array('edit_roles_access')) --}}
+                                                <a class="btn btn-outline-primary square-btn"
+                                                    href="#">
+                                                    <i class="tio tio-edit" data-toggle="tooltip" data-placement="top" title="Edit" ></i>
+                                                </a>
+                                            {{-- @endif --}}
+                                            {{-- <a class="btn btn-outline-info square-btn"
+                                                href="{{route('admin.permission.Role.show',[$role->id])}}">
+                                                <i class="tio tio-visible-outlined"></i>
+                                            </a> --}}
+
+                                            {{-- @if(in_array('delete_role_access')) --}}
+                                            <a class="btn btn-outline-danger square-btn" href="javascript:"
+                                                onclick="form_alert('User-{{$role->id}}','Want to delete this item ?'"><i class="tio tio-delete"
+                                                 data-toggle="tooltip" data-placement="top" title="Delete></i></a>
+                                            {{-- @endif --}}
+                                        </div>
+                                        <form action="#"
+                                                method="post" id="User-{{$role->id}}">
+                                            @csrf @method('delete')
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     </div>
+                    <!-- End Table -->
+
+                    <!-- Pagination -->
+                    <div class="table-responsive mt-4 px-3">
+                        <div class="d-flex justify-content-end">
+                            {{-- {!! $roles->links() !!} --}}
+                        </div>
+                    </div>
+                    @if($roles->count()==0)
+                        <div class="text-center p-4">
+                            <img class="mb-3" src="{{asset('public/assets/admin')}}/svg/illustrations/sorry.svg" alt="Image Description" style="width: 7rem;">
+                            <p class="mb-0">{{ translate('No data to show') }}</p>
+                        </div>
+                    @endif
                 </div>
+                <!-- End Card -->
             </div>
         </div>
     </div>
-</x-app-layout>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-<script>
-    $(document).ready(function() {
-        $('.del_role_form').submit(function(e) {
-            e.preventDefault();
-            const form = $(this);
-            const formData = new FormData(this);
-            const roleId = form.data('id');
-            $.ajax({
-                type: 'POST',
-                url: '{{route('role.destroy',0)}}' + roleId,  // Construct URL using the permission ID
-                data: formData,
-                processData: false,
-                contentType: false,
-                dataType: 'json',
-                success: function(response) {
-                    if (response.message) {
-                        toastr.success(response.message);
-                    } else {
-                        toastr.success("Permission Deleted Successfully!");
-                    }
-                    setTimeout(() => {
-                        $("#refresh_div").load(location.href + " #refresh_div");
-                    }, 1000);
-                },
-                error: function(xhr, status, error) {
-                    let errorMsg = "An error occurred. Please try again.";
-                    if (xhr.responseJSON && xhr.responseJSON.errors) {
-                        errorMsg = Object.values(xhr.responseJSON.errors).join('<br>');
-                    } else if (xhr.responseJSON && xhr.responseJSON.error) {
-                        errorMsg = xhr.responseJSON.error;
-                    }
-                    toastr.error(errorMsg);
-                    console.error(xhr.responseText);
+@endsection
+
+@push('script_2')
+    <script>
+        $('#search-form').on('submit', function () {
+            var formData = new FormData(this);
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+            $.post({
+                url: '#',
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                beforeSend: function () {
+                    $('#loading').show();
+                },
+                success: function (data) {
+                    $('#set-rows').html(data.view);
+                    $('.page-area').hide();
+                },
+                complete: function () {
+                    $('#loading').hide();
+                },
+            });
         });
-    });
-</script>
+                $(document).ready(function(){
+            var href=window.location.href;
+            var newUrl=href.substring(0,href.indexOf('?'));
+            window.history.replaceState({},"",newUrl);
+        })
 
+    </script>
+@endpush
