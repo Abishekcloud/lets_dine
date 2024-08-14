@@ -14,10 +14,7 @@ use App\Http\Controllers\BranchUserContoller;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-// Route::get('/', [Controller::class, 'edit'])->name('welcome');
+Route::get('/', [AuthenticatedSessionController::class, 'create'])->name('welcome');
 
 Route::get('/dashboard', function () {
     return view('admin.dashboard');
@@ -25,7 +22,6 @@ Route::get('/dashboard', function () {
 
 Route::get('/branch-login',[AuthenticatedSessionController::class,'create'])->name('branch.login');
 Route::post('/branch-login',[AuthenticatedSessionController::class,'store'])->name('branch.store.login');
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
