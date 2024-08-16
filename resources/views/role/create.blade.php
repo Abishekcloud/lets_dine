@@ -36,14 +36,16 @@
                                 <div class="form-group">
                                     <label class="input-label">{{__('messages.usertype')}}</label>
                                     <select class="form-control js-select2-custom" name="guard" id="guard" onchange="">
-                                        <option value="admin">Admin</option>
-                                        <option value="web">Branch</option>
+                                        @foreach($guards as $guard)
+                                        <option value="{{$guard}}">{{$guard}}</option>
+                                        @endforeach
+                                   
                                     </select>
                                 </div>
                             </div>
-                            <div id="filtered-results">
+                            {{-- <div id="filtered-results">
                                 Test
-                            </div>
+                            </div> --}}
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <div class="permission-select-wrapper">
@@ -83,7 +85,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
-<script>
+{{-- <script>
     $(document).ready(function() {
         $('#guard').on('change', function() {  // Corrected ID here
             var guardName = $(this).val();
@@ -117,7 +119,7 @@
             });
         });
     });
-</script>
+</script> --}}
 @push('script_2')
     <script>
         function readURL(input) {
