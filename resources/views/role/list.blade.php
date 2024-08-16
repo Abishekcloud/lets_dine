@@ -109,7 +109,7 @@
                                                  data-toggle="tooltip" data-placement="top" title="Delete></i></a>
                                             {{-- @endif --}}
                                         </div>
-                                        <form action="#"
+                                        <form action="{{ route('role.destroy', $role->id) }}"
                                                 method="post" id="User-{{$role->id}}">
                                             @csrf @method('delete')
                                         </form>

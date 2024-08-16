@@ -24,6 +24,7 @@ Route::get('/', function () {
 
 Route::get('/branch-login',[AuthenticatedSessionController::class,'create'])->name('branch.login');
 Route::post('/branch-login',[AuthenticatedSessionController::class,'store'])->name('branch.store.login');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -39,12 +40,12 @@ Route::middleware('auth')->group(function () {
     Route::post('/permission/update',[PermissionController::class,'update'])->name('permission.update');
     Route::delete('/permission/delete/{id}',[PermissionController::class,'destroy'])->name('permission.destroy');
 
-    Route::get('/role',[RoleController::class,'index'])->name('role.list');
-    Route::get('/role/create',[RoleController::class,'create'])->name('role.create');
-    Route::post('/role/store',[RoleController::class,'store'])->name('role.store');
-    Route::get('/role/edit/{id}',[RoleController::class,'edit'])->name('role.edit');
-    Route::post('/role/update/{id}',[RoleController::class,'update'])->name('role.update');
-    Route::delete('/role/delete/{id}',[RoleController::class,'destroy'])->name('role.destroy');
+    Route::get('/role',[RoleController::class,'index'])->name('web_role.list');
+    Route::get('/role/create',[RoleController::class,'create'])->name('web_role.create');
+    Route::post('/role/store',[RoleController::class,'store'])->name('web_role.store');
+    Route::get('/role/edit/{id}',[RoleController::class,'edit'])->name('web_role.edit');
+    Route::post('/role/update/{id}',[RoleController::class,'update'])->name('web_role.update');
+    Route::delete('/role/delete/{id}',[RoleController::class,'destroy'])->name('web_role.destroy');
 
 
     Route::get('/article',[ArticleController::class,'index'])->name('articles.list');

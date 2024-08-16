@@ -95,11 +95,13 @@
                     </ul>
                     <ul class="navbar-nav navbar-nav-lg nav-tabs">
 
-                        {{-- @if(in_array('Order_management_access',$userPermissions)) --}}
-                        <li class="nav-item">
-                            <small class="nav-subtitle">{{__('messages.user_management')}}</small>
-                            <small class="tio-more-horizontal nav-subtitle-replacer"></small>
-                        </li>
+                        @can(('user_management'))
+                            <li class="nav-item">
+                                <small class="nav-subtitle">{{__('messages.user_management')}}</small>
+                                <small class="tio-more-horizontal nav-subtitle-replacer"></small>
+                            </li>
+                        @endcan
+
                         <!-- Pages -->
                         {{-- @if(in_array('user_create_user_permission_access',$userPermissions)) --}}
                         <li class="navbar-vertical-aside-has-menu {{Request::is('admin/permissions*') ? 'active' : ''}}">
@@ -119,22 +121,34 @@
                                 </a>
                             </li>
                             {{-- @endif --}}
-                            {{-- @if(in_array('roles_list_page_access',$userPermissions)) --}}
-                            <li class="nav-item {{Request::is('admin/role*')?'active':''}}">
-                                <a class="nav-link " href="{{route('role.list')}}">
-                                    <span class="tio-circle nav-indicator-icon"></span>
-                                    <span class="text-truncate">{{__('messages.roles')}}</span>
-                                </a>
-                            </li>
-                            {{-- @endif --}}
-                            {{-- @if(in_array('roles_list_page_access',$userPermissions)) --}}
-                            <li class="nav-item {{Request::is('admin/permission*')?'active':''}}">
-                                <a class="nav-link " href="{{route('permission.list')}}">
-                                    <span class="tio-circle nav-indicator-icon"></span>
-                                    <span class="text-truncate">{{__('messages.permission')}}</span>
-                                </a>
-                            </li>
-                            {{-- @endif --}}
+                            @can(('role_show'))
+                            @if (Auth::guard('admin'))
+                                <li class="nav-item {{Request::is('admin/role*')?'active':''}}">
+                                    <a class="nav-link " href="{{route('role.list')}}">
+                                        <span class="tio-circle nav-indicator-icon"></span>
+                                        <span class="text-truncate">{{__('messages.roles')}}</span>
+                                    </a>
+                                </li>
+                                @php
+                                    dump(Auth::guard()->name);
+                                @endphp
+                            @elseif (Auth::guard('web'))
+                                <li class="nav-item {{Request::is('/role*')?'active':''}}">
+                                    <a class="nav-link " href="{{route('web_role.list')}}">
+                                        <span class="tio-circle nav-indicator-icon"></span>
+                                        <span class="text-truncate">{{__('messages.roles')}}</span>
+                                    </a>
+                                </li>
+                            @endif
+                            @endcan
+                            @can(('permission_show'))
+                                <li class="nav-item {{Request::is('admin/permission*')?'active':''}}">
+                                    <a class="nav-link " href="{{route('permission.list')}}">
+                                        <span class="tio-circle nav-indicator-icon"></span>
+                                        <span class="text-truncate">{{__('messages.permission')}}</span>
+                                    </a>
+                                </li>
+                            @endcan
 
                             </ul>
                         </li>

@@ -34,24 +34,21 @@
                             </div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="input-label">{{__('messages.usertype')}}</label>
-                                    <select class="form-control js-select2-custom" name="guard" id="guard" onchange="">
+                                    <label class="input-label">{{ __('messages.usertype') }}</label>
+                                    <select class="form-control js-select2-custom" name="guard" id="guard">
                                         @foreach($guards as $guard)
-                                        <option value="{{$guard}}">{{$guard}}</option>
+                                            <option value="{{ $guard }}">{{ $guard }}</option>
                                         @endforeach
-                                   
                                     </select>
                                 </div>
                             </div>
-                            {{-- <div id="filtered-results">
-                                Test
-                            </div> --}}
+
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <div class="permission-select-wrapper">
                                         <div class="d-flex justify-content-between">
                                             <label class="input-label">
-                                                {{__('messages.select_permissions')}}
+                                                {{ __('messages.select_permissions') }}
                                                 <span class="input-label-secondary"></span>
                                             </label>
                                             <div class="buttons">
@@ -59,15 +56,12 @@
                                                 <button type="button" id="deselect-all-btn" class="btn btn-danger">Deselect All</button>
                                             </div>
                                         </div>
-                                        <select name="permissions[]" id="choice_attributes"
-                                                class="form-control js-select2-custom"
-                                                multiple="multiple">
-                                            @foreach($permissions as $permission)
-                                                <option value="{{$permission->id}}">{{$permission->name}}</option>
-                                            @endforeach
+                                        <select name="permissions[]" id="filtered-results" class="form-control js-select2-custom" multiple="multiple">
                                         </select>
                                     </div>
                                 </div>
+                            </div>
+
                             </div>
                         </div>
                         <div class="d-flex justify-content-end  gap-3">
@@ -85,41 +79,47 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
-{{-- <script>
-    $(document).ready(function() {
-        $('#guard').on('change', function() {  // Corrected ID here
-            var guardName = $(this).val();
+<script>
+   $(document).ready(function() {
+    $('#guard').on('change', function() {
+        var guardName = $(this).val();
 
-            $.ajax({
-                url: '{{route('role.guard_filter')}}', // The URL to your filtering route
-                method: 'GET',
-                data: { guard_name: guardName },
-                success: function(response) {
-                    $('#filtered-results').empty();
-                    if (response.length > 0) {
-                        $.each(response, function(index, permissionName) {
-                            var checkboxHtml = `
-                                <div class="flex items-center">
-                                    <input type="checkbox" id="permission_${index}" value="${permissionName}" name="permissions[]" class="mr-2">
-                                    <label for="permission_${index}" class="text-sm text-gray-600">
-                                        <span style="padding-left: 1rem">${permissionName}</span>
-                                    </label>
-                                </div>
-                            `;
-                            $('#filtered-results').append(checkboxHtml);
-                        });
-                    } else {
-                        $('#filtered-results').append('<p>No permissions found for this guard.</p>');
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error('Error:', error);
-                    $('#filtered-results').append('<p>There was an error retrieving the permissions.</p>');
+        $.ajax({
+            url: '{{ route('role.guard_filter') }}',
+            method: 'GET',
+            data: { guard_name: guardName },
+            success: function(response) {
+                $('#filtered-results').empty();
+                if (response.length > 0) {
+                    $.each(response, function(index, permissionName) {
+                        var optionHtml = `
+                            <option value="${permissionName}">${permissionName}</option>
+                        `;
+                        $('#filtered-results').append(optionHtml);
+                    });
+                } else {
+                    $('#filtered-results').append('<option disabled>No permissions found for this guard.</option>');
                 }
-            });
+            },
+            error: function(xhr, status, error) {
+                console.error('Error:', error);
+                $('#filtered-results').empty().append('<option disabled>There was an error retrieving the permissions.</option>');
+            }
         });
     });
-</script> --}}
+
+    $('#select-all-btn').on('click', function() {
+        $('#filtered-results option').prop('selected', true);
+        $('#filtered-results').trigger('change');
+    });
+
+    $('#deselect-all-btn').on('click', function() {
+        $('#filtered-results option').prop('selected', false);
+        $('#filtered-results').trigger('change');
+    });
+});
+
+</script>
 @push('script_2')
     <script>
         function readURL(input) {

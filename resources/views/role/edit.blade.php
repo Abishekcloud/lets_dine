@@ -22,7 +22,7 @@
             </div>
         </div>
 
-     
+
         <form id="edit_permission_form" action="{{route('permission.update')}}">
             @csrf
             <div class="card mb-3">
@@ -36,19 +36,15 @@
                                         <input type="hidden" id="id" name="id" value="{{$roles->id}}">
 
                                 </div>
-                                
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
                                 <label for="guard_name" class="block text-sm text-gray-600 mb-2">Guard Name:</label>
                                 <select id="guard_name" name="guard_name" onchange="" class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
-                                    <option value="admin">Admin</option>
-                                    <option value="web">Web</option>
+                                    <option value="{{$roles->guard_name }}">{{$roles->guard_name }}</option>
                                 </select>
                             </div>
                         </div>
-                        
-
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <div class="permission-select-wrapper">

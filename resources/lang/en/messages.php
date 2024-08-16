@@ -175,6 +175,7 @@
   'roles' => 'Roles',
   'permission' => 'Permission',
   'select_guard' => 'Select Guard',
+  'search' => 'Search',
   'search_by_permission_name' => 'Search by Permission Name',
   'add_new_permission' => 'Add new Permission',
   '#' => '#',

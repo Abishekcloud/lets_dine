@@ -20,7 +20,7 @@ class RoleController extends Controller implements HasMiddleware
         new Middleware('permission:role_show', only: ['index']),
             new Middleware('permission:role_edit', only: ['edit']),
             new Middleware('permission:role_create', only: ['create']),
-            new Middleware('permission:role_delete', only: ['destroy']),    
+            new Middleware('permission:role_delete', only: ['destroy']),
         ];
     }
     /**
@@ -50,7 +50,7 @@ class RoleController extends Controller implements HasMiddleware
     public function create()
     {
         $guards = array_keys(config('auth.guards'));
- 
+
         $permissions = Permission::orderBy('name', 'ASC')->get();
         return view('role.create', compact('permissions','guards'));
     }
@@ -61,12 +61,12 @@ class RoleController extends Controller implements HasMiddleware
     public function store(Request $request)
     {
         try {
-            dd($request->toArray());
+            // dd($request);
             // Validate the request
             $validator = Validator::make($request->all(), [
-                'role' => 'required|unique:roles,name|min:3',
+                'name' => 'required|unique:roles,name|min:3',
                 'permissions' => 'required|array',
-                'guard_name' => 'required|string|in:web,admin', // Ensure guard_name is valid
+                'guard' => 'required|string|in:web,admin', // Ensure guard_name is valid
             ]);
 
             if ($validator->fails()) {
@@ -74,8 +74,8 @@ class RoleController extends Controller implements HasMiddleware
             }
 
             $role = Role::create([
-                'name' => $request->role,
-                'guard_name' => $request->guard_name,
+                'name' => $request->name,
+                'guard_name' => $request->guard,
             ]);
 
             if (!empty($request->permissions)) {
@@ -84,7 +84,8 @@ class RoleController extends Controller implements HasMiddleware
                 }
             }
 
-            return response()->json(['message' => 'Role created successfully!'], 201);
+            return redirect()->route('role.list')->with('message', 'Role created successfully!');
+
 
         } catch (Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
@@ -107,7 +108,7 @@ class RoleController extends Controller implements HasMiddleware
         // dd($id);
         $guard = Auth::guard()->name;
         $roles = Role::find($id);
-        $permissions = Permission::orderBy('name', 'ASC')->get();
+        $permissions = Permission::orderBy('name', 'ASC')->where('guard_name',$roles->guard_name)->get();
         $hasPermissions = $roles->permissions->pluck('name');
         return view('role.edit', compact('roles', 'permissions', 'hasPermissions'));
     }
@@ -125,17 +126,17 @@ class RoleController extends Controller implements HasMiddleware
                 'permissions' => 'required|array',
             ]);
             // dd($request->toArray());
-            
+
             if ($validator->fails()) {
                 return response()->json(['errors' => $validator->messages()], 422);
             }
 
             $role = Role::find($request->id);
-            
+
             $role->name = $request->role;
             $role->guard_name = $request->guard_name;
             $role->save();
-            
+
             $permissions = Permission::whereIn('id', $request->permissions)
                 ->where('guard_name', $role->guard_name)
                 ->pluck('name')->toArray();
