@@ -49,8 +49,10 @@ class RoleController extends Controller implements HasMiddleware
 
     public function create()
     {
+        $guards = array_keys(config('auth.guards'));
+ 
         $permissions = Permission::orderBy('name', 'ASC')->get();
-        return view('role.create', compact('permissions'));
+        return view('role.create', compact('permissions','guards'));
     }
 
     /**
