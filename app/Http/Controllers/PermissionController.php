@@ -28,7 +28,6 @@ class PermissionController extends Controller implements HasMiddleware
 
     public function index()
     {
-        // dd("Hii");
         $permissions = Permission::orderBy('name', 'ASC')->get();
         return view('permission.list',compact('permissions'));
     }
@@ -38,7 +37,8 @@ class PermissionController extends Controller implements HasMiddleware
      */
     public function create()
     {
-        return view('permission.create');
+        $guards = array_keys(config('auth.guards'));
+        return view('permission.create',compact('guards'));
     }
 
     /**
@@ -90,8 +90,9 @@ class PermissionController extends Controller implements HasMiddleware
      */
     public function edit(string $id)
     {
-        $permission = Permission::findById($id);
-        return view('permission.edit',compact('permission'));
+        $permission = Permission::find($id);
+        $guards = array_keys(config('auth.guards'));
+        return view('permission.edit',compact('permission', 'guards'));
     }
 
     /**
@@ -100,23 +101,22 @@ class PermissionController extends Controller implements HasMiddleware
     public function update(Request $request)
     {
         try {
-            // Validate input
             $validator = Validator::make($request->all(), [
                 'id' => 'required|exists:permissions,id',
-                'permission' => 'required|unique:permissions,name,' . $request->id,
-                'guard_name' => 'required|string|in:web,admin', // Add validation for guard_name
+                'name' => 'required|unique:permissions,name,' . $request->id,
+                'guard_name' => 'required|string',
             ]);
 
             if ($validator->fails()) {
                 return response()->json(['errors' => $validator->messages()], 422);
             }
 
-            $permission = Permission::findById($request->id);
+            $permission = Permission::find($request->id);
             if (!$permission) {
                 return response()->json(['error' => 'Permission not found.'], 404);
             }
 
-            $permission->name = $request->permission;
+            $permission->name = $request->name;
             $permission->guard_name = $request->guard_name;
             $permission->update();
 

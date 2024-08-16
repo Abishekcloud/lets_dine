@@ -41,7 +41,7 @@
                             </div>
                             {{-- @if(in_array('add_permission_access',$userPermissions)) --}}
                                 <div class="col-lg-8 col-sm-4 col-md-6 d-flex justify-content-sm-end">
-                                    <a href="#" class="btn btn-primary">
+                                    <a href="{{route('permission.create')}}" class="btn btn-primary">
                                         <i class="tio-add"></i>
                                         {{__('messages.add_new_permission')}}
                                     </a>
@@ -72,7 +72,7 @@
                                         <div class="d-flex gap-2 justify-content-center">
                                             @can(('permission_edit'))
                                                 <a class="btn btn-outline-primary square-btn"
-                                                    href="#">
+                                                    href="{{route('permission.edit',$permission->id)}}">
                                                     <i class="tio tio-edit"></i>
                                                 </a>
                                             @endcan
