@@ -14,9 +14,11 @@ use App\Http\Controllers\BranchUserContoller;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [AuthenticatedSessionController::class, 'create'])->name('welcome');
+Route::get('/', function () {
+    return view('welcome');
+});
 
-Route::get('/dashboard', function () {
+Route::get('/', function () {
     return view('admin.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
