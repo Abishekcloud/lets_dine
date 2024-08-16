@@ -6,6 +6,10 @@
   'want to login your branches' => 'Want to login your branches',
   'branch' => 'Branch',
   'login' => 'Login',
+  'usertype' => 'usertype',
+
+  'order_management' => 'order management',
+
   'your' => 'Your',
   'email' => 'Email',
   'email@address.com' => 'Email@address.com',

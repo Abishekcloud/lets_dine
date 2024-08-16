@@ -41,7 +41,7 @@
                             </div>
                             {{-- @if(('add_roles_access')) --}}
                             <div class="col-lg-8 col-sm-4 col-md-6 d-flex justify-content-sm-end">
-                                <a href="#" class="btn btn-primary">
+                                <a href="{{route('role.create')}}" class="btn btn-primary">
                                     <i class="tio-add"></i>
                                     Add New Role
                                 </a>
@@ -57,6 +57,7 @@
                                 <tr>
                                     <th>SL</th>
                                     <th>Role Name</th>
+                                    <th>Guard Name</th>
                                     <th>Permissions</th>
                                     <th class="text-center">Action</th>
                                 </tr>
@@ -74,6 +75,13 @@
                                         </span>
                                     </td>
                                     <td>
+                                        <span class="media gap-3 align-items-center">
+                                             <a href="#" class="media-body text-dark">
+                                               {{ $role->guard_name }}
+                                             </a>
+                                        </span>
+                                    </td>
+                                    <td>
                                         <select name="permissions[]"
                                                 class="form-control js-select2-custom"
                                                 multiple="multiple">
@@ -86,7 +94,7 @@
                                         <div class="d-flex gap-2 justify-content-center">
                                             {{-- @if(in_array('edit_roles_access')) --}}
                                                 <a class="btn btn-outline-primary square-btn"
-                                                    href="#">
+                                                    href="{{ route('role.edit', $role->id) }}">
                                                     <i class="tio tio-edit" data-toggle="tooltip" data-placement="top" title="Edit" ></i>
                                                 </a>
                                             {{-- @endif --}}
