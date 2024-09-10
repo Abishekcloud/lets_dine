@@ -12,7 +12,6 @@
             <h2 class="mb-1 text--primary">{{ __('messages.welcome') }}, {{ Auth::user()->name }}.</h2>
             <p class="text-dark fs-12">{{ __('messages.welcome') }} {{ __('messages.admin') }}, {{ __('messages._here_is_your_business_statistics') }}.</p>
         </div>
-
     </div>
 @endsection
 

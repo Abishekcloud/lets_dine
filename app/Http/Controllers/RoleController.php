@@ -105,7 +105,6 @@ class RoleController extends Controller implements HasMiddleware
      */
     public function edit(string $id)
     {
-        // dd($id);
         $guard = Auth::guard()->name;
         $roles = Role::find($id);
         $permissions = Permission::orderBy('name', 'ASC')->where('guard_name',$roles->guard_name)->get();

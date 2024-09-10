@@ -122,17 +122,14 @@
                             </li>
                             {{-- @endif --}}
                             @can(('role_show'))
-                            @if (Auth::guard('admin'))
+                            @if (Auth::guard()->name == 'admin')
                                 <li class="nav-item {{Request::is('admin/role*')?'active':''}}">
                                     <a class="nav-link " href="{{route('role.list')}}">
                                         <span class="tio-circle nav-indicator-icon"></span>
                                         <span class="text-truncate">{{__('messages.roles')}}</span>
                                     </a>
                                 </li>
-                                @php
-                                    dump(Auth::guard()->name);
-                                @endphp
-                            @elseif (Auth::guard('web'))
+                            @elseif(Auth::guard()->name == 'web')
                                 <li class="nav-item {{Request::is('/role*')?'active':''}}">
                                     <a class="nav-link " href="{{route('web_role.list')}}">
                                         <span class="tio-circle nav-indicator-icon"></span>

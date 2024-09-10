@@ -39,14 +39,23 @@
                                     </div>
                                 </form>
                             </div>
-                            {{-- @if(('add_roles_access')) --}}
-                            <div class="col-lg-8 col-sm-4 col-md-6 d-flex justify-content-sm-end">
-                                <a href="{{route('role.create')}}" class="btn btn-primary">
-                                    <i class="tio-add"></i>
-                                    Add New Role
-                                </a>
-                            </div>
-                            {{-- @endif --}}
+                            @can('role_create')
+                            @if (Auth::guard()->name == 'admin')
+                                <div class="col-lg-8 col-sm-4 col-md-6 d-flex justify-content-sm-end">
+                                    <a href="{{route('role.create')}}" class="btn btn-primary">
+                                        <i class="tio-add"></i>
+                                        Add New Role
+                                    </a>
+                                </div>
+                            @elseif(Auth::guard()->name == 'web')
+                                <div class="col-lg-8 col-sm-4 col-md-6 d-flex justify-content-sm-end">
+                                    <a href="{{route('web_role.create')}}" class="btn btn-primary">
+                                        <i class="tio-add"></i>
+                                        Add New Role
+                                    </a>
+                                </div>
+                            @endif
+                            @endcan
                         </div>
                     </div>
 

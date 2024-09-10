@@ -105,6 +105,7 @@
                             <p class="mb-0">{{ translate('No data to show') }}</p>
                         </div>
                     @endif
+                    {{ $permissions->links() }}
                 </div>
                 <!-- End Card -->
             </div>

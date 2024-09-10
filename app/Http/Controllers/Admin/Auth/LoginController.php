@@ -24,11 +24,12 @@ class LoginController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        // dd($request);
         if (Auth::guard('admin')->attempt($request->only('email', 'password'), $request->filled('remember'))) {
             $request->session()->regenerate();
+            // dd($request);
 
-            return redirect()->intended(route('admin.dashboard'));
+            // return redirect()->intended(route('admin.dashboard'));
+            return redirect()->route('admin.dashboard');
         }
 
         // If authentication fails, redirect back with an error message
@@ -48,6 +49,6 @@ class LoginController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect('/');  
+        return redirect('/');
     }
 }
